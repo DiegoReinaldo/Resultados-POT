@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Dashboard — Pesquisa sobre Liderança</title>
+
+        <!-- Chart.js -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+        <style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f4f6f9;
+        color: #1f2937;
+    }
+
+    header {
+        background: linear-gradient(135deg, #1e3a8a, #2563eb);
+        color: white;
+        padding: 28px 30px;
+    }
+
+    header h1 {
+        margin: 0 0 8px;
+        font-size: 28px;
+    }
+
+    header p {
+        margin: 0;
+        opacity: 0.9;
+    }
+
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 25px;
+    }
+
+    .barra-controle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+
+    .status {
+        background: white;
+        border-radius: 10px;
+        padding: 12px 16px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        font-size: 14px;
+    }
+
+    .status.ok {
+        color: #166534;
+    }
+
+    .status.erro {
+        color: #b91c1c;
+    }
+
+    .status.carregando {
+        color: #92400e;
+    }
+
+    button {
+        border: none;
+        background: #2563eb;
+        color: white;
+        padding: 12px 18px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    button:hover {
+        background: #1d4ed8;
+    }
+
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+        margin-bottom: 25px;
+    }
+
+    .card {
+        background: white;
+        border-radius: 12px;
+        padding: 22px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+
+    .card .titulo {
+        font-size: 14px;
+        color: #6b7280;
+        margin-bottom: 10px;
+    }
+
+    .card .valor {
+        font-size: 30px;
+        font-weight: bold;
+        color: #1e3a8a;
+    }
+
+    .graficos {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 22px;
+    }
+
+    .grafico-card {
+        background: white;
+        border-radius: 12px;
+        padding: 22px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+
+    .grafico-card h2 {
+        margin-top: 0;
+        font-size: 18px;
+        color: #1f2937;
+    }
+
+    .grafico-container {
+        position: relative;
+        height: 350px;
+    }
+
+    .grafico-largo {
+        grid-column: span 2;
+    }
+
+    .sintese {
+        background: white;
+        border-radius: 12px;
+        padding: 25px;
+        margin-top: 22px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+
+    .sintese h2 {
+        margin-top: 0;
+    }
+
+    .sintese p {
+        line-height: 1.7;
+    }
+
+    .erro-box {
+        background: #fee2e2;
+        color: #991b1b;
+        border: 1px solid #fecaca;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    .oculto {
+        display: none;
+    }
+
+    @media (max-width: 1000px) {
+        .cards {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .graficos {
+            grid-template-columns: 1fr;
+        }
+
+        .grafico-largo {
+            grid-column: span 1;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .cards {
+            grid-template-columns: 1fr;
+        }
+
+        .container {
+            padding: 15px;
+        }
+
+        header {
+            padding: 22px 18px;
+        }
+
+        header h1 {
+            font-size: 22px;
+        }
+    }
+</style>
+    </head>
+
+    <body>
+
+        <header>
+            <h1>Dashboard — Pesquisa sobre Liderança</h1>
+            <p>Resultados atualizados automaticamente a partir das respostas da
+                pesquisa.</p>
+        </header>
+
+        <div class="container">
+
+            <div class="barra-controle">
+
+                <div id="status" class="status carregando">
+                    Carregando dados...
+                </div>
+
+                <button onclick="carregarDados()">
+                    ↻ Atualizar agora
+                </button>
+
+            </div>
+
+            <div id="erro" class="erro-box oculto"></div>
+
+            <section id="dashboard" class="oculto">
+
+                <!-- INDICADORES -->
+
+                <div class="cards">
+
+                    <div class="card">
+                        <div class="titulo">
+                            Total de respostas
+                        </div>
+
+                        <div class="valor" id="totalRespostas">
+                            0
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="titulo">
+                            Média geral de liderança
+                        </div>
+
+                        <div class="valor" id="mediaLideranca">
+                            -
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="titulo">
+                            Média de motivação
+                        </div>
+
+                        <div class="valor" id="mediaMotivacao">
+                            -
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="titulo">
+                            Perfil predominante
+                        </div>
+
+                        <div class="valor" id="perfilPredominante">
+                            -
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- GRÁFICOS -->
+
+                <div class="graficos">
+
+                    <div class="grafico-card">
+                        <h2>Faixa etária</h2>
+
+                        <div class="grafico-container">
+                            <canvas id="graficoIdade"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="grafico-card">
+                        <h2>Sexo</h2>
+
+                        <div class="grafico-container">
+                            <canvas id="graficoSexo"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="grafico-card">
+                        <h2>Turno de trabalho</h2>
+
+                        <div class="grafico-container">
+                            <canvas id="graficoTurno"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="grafico-card">
+                        <h2>Perfil de liderança predominante</h2>
+
+                        <div class="grafico-container">
+                            <canvas id="graficoPerfil"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="grafico-card grafico-largo">
+                        <h2>Percepção sobre a liderança</h2>
+
+                        <div class="grafico-container">
+                            <canvas id="graficoPercepcao"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="grafico-card grafico-largo">
+                        <h2>Motivação e satisfação</h2>
+
+                        <div class="grafico-container">
+                            <canvas id="graficoMotivacao"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="grafico-card grafico-largo">
+                        <h2>Fatores considerados importantes</h2>
+
+                        <div class="grafico-container">
+                            <canvas id="graficoFatores"></canvas>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- SÍNTESE -->
+
+                <div class="sintese">
+
+                    <h2>Síntese dos resultados</h2>
+
+                    <p id="textoSintese">
+                        Aguardando dados...
+                    </p>
+
+                </div>
+
+            </section>
+
+        </div>
+
+        <script>
+
+    /*
+     * ============================================================
+     * CONFIGURAÇÃO
+     * ============================================================
+     */
+
+    const API_URL =
+        "https://script.google.com/macros/s/AKfycbw7sD2YghvHIwc5Gq6X6bcdac3AmrHiVndh87q4dcmw3-jH9mZC-sBwzimQNfi0yKNk/exec";
+
+
+    /*
+     * Intervalo de atualização.
+     *
+     * 15000 = 15 segundos
+     *
+     * Você pode aumentar para:
+     *
+     * 30000 = 30 segundos
+     * 60000 = 1 minuto
+     */
+
+    const INTERVALO_ATUALIZACAO = 15000;
+
+
+    let graficos = {};
+
+    let dadosAtuais = [];
+
+    let carregando = false;
+
+
+    /*
+     * ============================================================
+     * CONFIGURAÇÃO DAS PERGUNTAS
+     * ============================================================
+     */
+
+    const PERCEPCAO_COLS = [
+
+        {
+            key: "p1",
+            label: "Participação nas decisões"
+        },
+
+        {
+            key: "p2",
+            label: "Centralização das decisões"
+        },
+
+        {
+            key: "p3",
+            label: "Comunicação da liderança"
+        },
+
+        {
+            key: "p4",
+            label: "Reconhecimento"
+        },
+
+        {
+            key: "p5",
+            label: "Confiança na liderança"
+        },
+
+        {
+            key: "p6",
+            label: "Relacionamento"
+        },
+
+        {
+            key: "p7",
+            label: "Apoio aos colaboradores"
+        },
+
+        {
+            key: "p8",
+            label: "Adaptação da liderança"
+        }
+
+    ];
+
+
+    const MOTIVACAO_COLS = [
+
+        {
+            key: "m10",
+            label: "Motivação"
+        },
+
+        {
+            key: "m11",
+            label: "Satisfação"
+        },
+
+        {
+            key: "m12",
+            label: "Reconhecimento"
+        },
+
+        {
+            key: "m13",
+            label: "Intenção de permanecer"
+        },
+
+        {
+            key: "m14",
+            label: "Comportamento e envolvimento"
+        }
+
+    ];
+
+
+    /*
+     * ============================================================
+     * NORMALIZAÇÃO
+     * ============================================================
+     */
+
+    function normalizar(valor) {
+
+        return String(valor ?? "")
+            .trim()
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
+
+    }
+
+
+    /*
+     * Procura uma coluna ignorando acentos,
+     * maiúsculas/minúsculas etc.
+     */
+
+    function encontrarColuna(objeto, nome) {
+
+        const chaveProcurada = normalizar(nome);
+
+        const chave = Object.keys(objeto || {})
+            .find(k => normalizar(k) === chaveProcurada);
+
+        return chave || null;
+    }
+
+
+    /*
+     * Obtém valor de uma coluna.
+     */
+
+    function valorColuna(linha, nome) {
+
+        const chave = encontrarColuna(linha, nome);
+
+        if (!chave) {
+            return "";
+        }
+
+        return linha[chave];
+    }
+
+
+    /*
+     * ============================================================
+     * CONTAGEM
+     * ============================================================
+     */
+
+    function contarColuna(dados, coluna) {
+
+        const contador = {};
+
+        dados.forEach(linha => {
+
+            const valor = String(
+                valorColuna(linha, coluna)
+            ).trim();
+
+            if (!valor) {
+                return;
+            }
+
+            contador[valor] =
+                (contador[valor] || 0) + 1;
+
+        });
+
+        return contador;
+    }
+
+
+    /*
+     * ============================================================
+     * MÉDIA
+     * ============================================================
+     */
+
+    function mediaColuna(dados, coluna) {
+
+        const valores = [];
+
+        dados.forEach(linha => {
+
+            const valor = parseFloat(
+                String(
+                    valorColuna(linha, coluna)
+                ).replace(",", ".")
+            );
+
+            if (!isNaN(valor)) {
+                valores.push(valor);
+            }
+
+        });
+
+        if (!valores.length) {
+            return null;
+        }
+
+        return valores.reduce(
+            (a, b) => a + b,
+            0
+        ) / valores.length;
+
+    }
+
+
+    /*
+     * Média de várias colunas.
+     */
+
+    function mediaColunas(dados, colunas) {
+
+        const valores = [];
+
+        dados.forEach(linha => {
+
+            colunas.forEach(coluna => {
+
+                const valor = parseFloat(
+                    String(
+                        valorColuna(linha, coluna.key)
+                    ).replace(",", ".")
+                );
+
+                if (!isNaN(valor)) {
+                    valores.push(valor);
+                }
+
+            });
+
+        });
+
+        if (!valores.length) {
+            return null;
+        }
+
+        return valores.reduce(
+            (a, b) => a + b,
+            0
+        ) / valores.length;
+
+    }
+
+
+    /*
+     * ============================================================
+     * COLUNAS EXISTENTES
+     * ============================================================
+     */
+
+    function colunasExistentes(dados, definicoes) {
+
+        if (!dados.length) {
+            return [];
+        }
+
+        return definicoes.filter(coluna => {
+
+            return encontrarColuna(
+                dados[0],
+                coluna.key
+            );
+
+        });
+
+    }
+
+
+    /*
+     * ============================================================
+     * DESTRUIR GRÁFICOS
+     * ============================================================
+     */
+
+    function destruirGraficos() {
+
+        Object.values(graficos).forEach(grafico => {
+
+            if (grafico) {
+                grafico.destroy();
+            }
+
+        });
+
+        graficos = {};
+
+    }
+
+
+    /*
+     * ============================================================
+     * CRIAR GRÁFICO
+     * ============================================================
+     */
+
+    function criarGrafico(id, configuracao) {
+
+        const canvas =
+            document.getElementById(id);
+
+        if (!canvas) {
+            return null;
+        }
+
+        return new Chart(
+            canvas.getContext("2d"),
+            configuracao
+        );
+
+    }
+
+
+    /*
+     * ============================================================
+     * ATUALIZAR DASHBOARD
+     * ============================================================
+     */
+
+    function atualizarDashboard(dados) {
+
+        dadosAtuais = dados;
+
+        document
+            .getElementById("dashboard")
+            .classList.remove("oculto");
+
+        document
+            .getElementById("erro")
+            .classList.add("oculto");
+
+
+        destruirGraficos();
+
+
+        /*
+         * TOTAL
+         */
+
+        document
+            .getElementById("totalRespostas")
+            .textContent = dados.length;
+
+
+        /*
+         * MÉDIA DE LIDERANÇA
+         */
+
+        const percepcao =
+            colunasExistentes(
+                dados,
+                PERCEPCAO_COLS
+            );
+
+        const mediaLideranca =
+            mediaColunas(
+                dados,
+                percepcao
+            );
+
+        document
+            .getElementById("mediaLideranca")
+            .textContent =
+            mediaLideranca !== null
+                ? mediaLideranca.toFixed(2)
+                : "-";
+
+
+        /*
+         * MÉDIA DE MOTIVAÇÃO
+         */
+
+        const motivacao =
+            colunasExistentes(
+                dados,
+                MOTIVACAO_COLS
+            );
+
+        const mediaMot =
+            mediaColunas(
+                dados,
+                motivacao
+            );
+
+        document
+            .getElementById("mediaMotivacao")
+            .textContent =
+            mediaMot !== null
+                ? mediaMot.toFixed(2)
+                : "-";
+
+
+        /*
+         * PERFIL
+         */
+
+        const perfis =
+            contarColuna(
+                dados,
+                "perfil"
+            );
+
+        const perfilOrdenado =
+            Object.entries(perfis)
+                .sort((a, b) => b[1] - a[1]);
+
+        const perfilTop =
+            perfilOrdenado.length
+                ? perfilOrdenado[0][0]
+                : "-";
+
+        document
+            .getElementById("perfilPredominante")
+            .textContent = perfilTop;
+
+
+        /*
+         * GRÁFICO DE IDADE
+         */
+
+        const idades =
+            contarColuna(
+                dados,
+                "idade"
+            );
+
+        graficos.idade =
+            criarGrafico(
+                "graficoIdade",
+                {
+
+                    type: "bar",
+
+                    data: {
+
+                        labels:
+                            Object.keys(idades),
+
+                        datasets: [
+
+                            {
+                                label: "Respostas",
+
+                                data:
+                                    Object.values(idades)
+                            }
+
+                        ]
+
+                    },
+
+                    options: {
+
+                        responsive: true,
+
+                        maintainAspectRatio: false,
+
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        }
+
+                    }
+
+                }
+            );
+
+
+        /*
+         * GRÁFICO DE SEXO
+         */
+
+        const sexos =
+            contarColuna(
+                dados,
+                "sexo"
+            );
+
+        graficos.sexo =
+            criarGrafico(
+                "graficoSexo",
+                {
+
+                    type: "doughnut",
+
+                    data: {
+
+                        labels:
+                            Object.keys(sexos),
+
+                        datasets: [
+
+                            {
+                                data:
+                                    Object.values(sexos)
+                            }
+
+                        ]
+
+                    },
+
+                    options: {
+
+                        responsive: true,
+
+                        maintainAspectRatio: false
+
+                    }
+
+                }
+            );
+
+
+        /*
+         * TURNO DE TRABALHO
+         */
+
+        const turnos =
+            contarColuna(
+                dados,
+                "turnoTrabalho"
+            );
+
+        graficos.turno =
+            criarGrafico(
+                "graficoTurno",
+                {
+
+                    type: "bar",
+
+                    data: {
+
+                        labels:
+                            Object.keys(turnos),
+
+                        datasets: [
+
+                            {
+                                label: "Respostas",
+
+                                data:
+                                    Object.values(turnos)
+                            }
+
+                        ]
+
+                    },
+
+                    options: {
+
+                        responsive: true,
+
+                        maintainAspectRatio: false,
+
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        }
+
+                    }
+
+                }
+            );
+
+
+        /*
+         * PERFIL
+         */
+
+        graficos.perfil =
+            criarGrafico(
+                "graficoPerfil",
+                {
+
+                    type: "doughnut",
+
+                    data: {
+
+                        labels:
+                            Object.keys(perfis),
+
+                        datasets: [
+
+                            {
+                                data:
+                                    Object.values(perfis)
+                            }
+
+                        ]
+
+                    },
+
+                    options: {
+
+                        responsive: true,
+
+                        maintainAspectRatio: false
+
+                    }
+
+                }
+            );
+
+
+        /*
+         * PERCEPÇÃO
+         */
+
+        const mediasPercepcao =
+            percepcao.map(coluna => {
+
+                return mediaColuna(
+                    dados,
+                    coluna.key
+                );
+
+            });
+
+
+        graficos.percepcao =
+            criarGrafico(
+                "graficoPercepcao",
+                {
+
+                    type: "bar",
+
+                    data: {
+
+                        labels:
+                            percepcao.map(
+                                coluna => coluna.label
+                            ),
+
+                        datasets: [
+
+                            {
+                                label: "Média",
+
+                                data:
+                                    mediasPercepcao
+                            }
+
+                        ]
+
+                    },
+
+                    options: {
+
+                        indexAxis: "y",
+
+                        responsive: true,
+
+                        maintainAspectRatio: false,
+
+                        scales: {
+
+                            x: {
+
+                                min: 0,
+
+                                max: 5
+
+                            }
+
+                        }
+
+                    }
+
+                }
+            );
+
+
+        /*
+         * MOTIVAÇÃO
+         */
+
+        const mediasMotivacao =
+            motivacao.map(coluna => {
+
+                return mediaColuna(
+                    dados,
+                    coluna.key
+                );
+
+            });
+
+
+        graficos.motivacao =
+            criarGrafico(
+                "graficoMotivacao",
+                {
+
+                    type: "bar",
+
+                    data: {
+
+                        labels:
+                            motivacao.map(
+                                coluna => coluna.label
+                            ),
+
+                        datasets: [
+
+                            {
+                                label: "Média",
+
+                                data:
+                                    mediasMotivacao
+                            }
+
+                        ]
+
+                    },
+
+                    options: {
+
+                        indexAxis: "y",
+
+                        responsive: true,
+
+                        maintainAspectRatio: false,
+
+                        scales: {
+
+                            x: {
+
+                                min: 0,
+
+                                max: 5
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            );
+
+
+        /*
+         * FATORES
+         */
+
+        const fatores = {};
+
+        dados.forEach(linha => {
+
+            const valor =
+                String(
+                    valorColuna(
+                        linha,
+                        "fatores"
+                    )
+                );
+
+            if (!valor.trim()) {
+                return;
+            }
+
+            valor
+                .split(";")
+                .map(item => item.trim())
+                .filter(Boolean)
+                .forEach(item => {
+
+                    fatores[item] =
+                        (fatores[item] || 0) + 1;
+
+                });
+
+        });
+
+
+        const fatoresOrdenados =
+            Object.entries(fatores)
+                .sort((a, b) => b[1] - a[1]);
+
+
+        graficos.fatores =
+            criarGrafico(
+                "graficoFatores",
+                {
+
+                    type: "bar",
+
+                    data: {
+
+                        labels:
+                            fatoresOrdenados.map(
+                                item => item[0]
+                            ),
+
+                        datasets: [
+
+                            {
+                                label: "Quantidade",
+
+                                data:
+                                    fatoresOrdenados.map(
+                                        item => item[1]
+                                    )
+                            }
+
+                        ]
+
+                    },
+
+                    options: {
+
+                        indexAxis: "y",
+
+                        responsive: true,
+
+                        maintainAspectRatio: false
+
+                    }
+
+                }
+
+            );
+
+
+        /*
+         * SÍNTESE
+         */
+
+        gerarSintese(
+            dados,
+            mediaLideranca,
+            mediaMot,
+            perfilTop
+        );
+
+    }
+
+
+    /*
+     * ============================================================
+     * SÍNTESE
+     * ============================================================
+     */
+
+    function gerarSintese(
+        dados,
+        mediaLideranca,
+        mediaMotivacao,
+        perfil
+    ) {
+
+        let texto =
+            `Foram registradas ${dados.length} respostas na pesquisa. `;
+
+
+        if (mediaLideranca !== null) {
+
+            texto +=
+                `A média geral das dimensões de percepção sobre a liderança foi de ` +
+                `${mediaLideranca.toFixed(2)} em uma escala de 1 a 5. `;
+
+        }
+
+
+        if (mediaMotivacao !== null) {
+
+            texto +=
+                `A média das dimensões relacionadas à motivação e satisfação foi de ` +
+                `${mediaMotivacao.toFixed(2)} em uma escala de 1 a 5. `;
+
+        }
+
+
+        if (perfil && perfil !== "-") {
+
+            texto +=
+                `O perfil de liderança mais frequente entre as respostas foi ` +
+                `"${perfil}".`;
+
+        }
+
+
+        document
+            .getElementById("textoSintese")
+            .textContent = texto;
+
+    }
+
+
+    /*
+     * ============================================================
+     * BUSCAR DADOS
+     * ============================================================
+     */
+
+    async function carregarDados() {
+
+        if (carregando) {
+            return;
+        }
+
+        carregando = true;
+
+
+        const status =
+            document.getElementById("status");
+
+        const erro =
+            document.getElementById("erro");
+
+
+        status.className =
+            "status carregando";
+
+        status.textContent =
+            "Atualizando dados...";
+
+
+        try {
+
+            if (
+                !API_URL ||
+                API_URL.includes("COLE_AQUI")
+            ) {
+
+                throw new Error(
+                    "Você ainda não colocou a URL do Google Apps Script no código."
+                );
+
+            }
+
+
+            /*
+             * O parâmetro _ evita cache.
+             */
+
+            const url =
+                API_URL +
+                (API_URL.includes("?") ? "&" : "?") +
+                "_=" +
+                Date.now();
+
+
+            const resposta =
+                await fetch(
+                    url,
+                    {
+                        method: "GET",
+                        cache: "no-store"
+                    }
+                );
+
+
+            if (!resposta.ok) {
+
+                throw new Error(
+                    "O servidor respondeu com HTTP " +
+                    resposta.status
+                );
+
+            }
+
+
+            const resultado =
+                await resposta.json();
+
+
+            if (!resultado.sucesso) {
+
+                throw new Error(
+                    resultado.erro ||
+                    "Erro retornado pelo Apps Script."
+                );
+
+            }
+
+
+            const dados =
+                Array.isArray(resultado.dados)
+                    ? resultado.dados
+                    : [];
+
+
+            atualizarDashboard(dados);
+
+
+            const agora =
+                new Date();
+
+
+            status.className =
+                "status ok";
+
+            status.textContent =
+                `${dados.length} resposta(s) carregada(s) • ` +
+                `Atualizado às ${agora.toLocaleTimeString("pt-BR")}`;
+
+
+        } catch (erroCapturado) {
+
+            console.error(
+                "Erro ao atualizar:",
+                erroCapturado
+            );
+
+
+            status.className =
+                "status erro";
+
+            status.textContent =
+                "Erro ao consultar os dados";
+
+
+            erro.classList.remove("oculto");
+
+            erro.textContent =
+                "Não foi possível consultar a planilha. " +
+                erroCapturado.message;
+
+
+            /*
+             * Se já houver dados carregados,
+             * mantemos o dashboard na tela.
+             */
+
+            if (!dadosAtuais.length) {
+
+                document
+                    .getElementById("dashboard")
+                    .classList.add("oculto");
+
+            }
+
+        } finally {
+
+            carregando = false;
+
+        }
+
+    }
+
+
+    /*
+     * ============================================================
+     * ATUALIZAÇÃO AUTOMÁTICA
+     * ============================================================
+     */
+
+    setInterval(
+        carregarDados,
+        INTERVALO_ATUALIZACAO
+    );
+
+
+    /*
+     * Se a pessoa voltar para a aba,
+     * atualiza imediatamente.
+     */
+
+    document.addEventListener(
+        "visibilitychange",
+        function() {
+
+            if (
+                document.visibilityState === "visible"
+            ) {
+
+                carregarDados();
+
+            }
+
+        }
+    );
+
+
+    /*
+     * PRIMEIRA CONSULTA
+     */
+
+    carregarDados();
+
+</script>
+
+    </body>
+</html>
