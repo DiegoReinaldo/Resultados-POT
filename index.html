@@ -332,7 +332,7 @@
             min-width: 145px;
             max-width: 145px;
             height: 112px;
-            vertical-align: bottom;
+            vertical-align: middle;
             font-size: 11px;
         }
         
@@ -1054,11 +1054,11 @@
 
                     <div class="legenda-escala" aria-label="Escala de cores da matriz">
                         <span class="legenda-titulo">Escala da média:</span>
-                        <span class="legenda-item"><i style="background:#ff5252"></i>1,0</span>
-                        <span class="legenda-item"><i style="background:#f8c9aa"></i>2,0</span>
-                        <span class="legenda-item"><i style="background:#dce8f3"></i>3,0</span>
-                        <span class="legenda-item"><i style="background:#8eb9df"></i>4,0</span>
-                        <span class="legenda-item"><i style="background:#5795cc"></i>5,0</span>
+                        <span class="legenda-item"><i style="background:#ff5252"></i>1.0 (Discordo totalmente)</span>
+                        <span class="legenda-item"><i style="background:#f8c9aa"></i>2.0 (Discordo parcialmente)</span>
+                        <span class="legenda-item"><i style="background:#dce8f3"></i>3.0 (Nem concordo nem discordo)</span>
+                        <span class="legenda-item"><i style="background:#8eb9df"></i>4.0 (Concordo parcialmente)</span>
+                        <span class="legenda-item"><i style="background:#5795cc"></i>5.0 (Concordo totalmente)</span>
                         <span class="legenda-observacao">Os valores decimais recebem uma cor intermediária.</span>
                     </div>
 
@@ -1145,8 +1145,8 @@
 
     <script>
         /* ============================================================
-                                                                                                           CONFIGURAÇÃO
-                                                                                                           ============================================================ */
+                                                                                                                                                                                   CONFIGURAÇÃO
+                                                                                                                                                                                   ============================================================ */
 
 
         const API_URL =
@@ -2682,10 +2682,12 @@
 
                 });
 
+                /*
                 const tdN = document.createElement("td");
                 tdN.textContent = perfis[perfil];
                 tdN.className = "n-perfil";
                 tr.appendChild(tdN);
+                */
 
                 corpo.appendChild(tr);
             });
