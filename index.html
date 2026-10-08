@@ -5,10 +5,7 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Dashboard — Pesquisa sobre Liderança</title>
 
@@ -21,731 +18,585 @@
 
 
     <style>
-
         * {
             box-sizing: border-box;
         }
-
-
+        
         body {
-
             margin: 0;
-
-            font-family:
-                Arial,
-                Helvetica,
-                sans-serif;
-
+            font-family: Arial, Helvetica, sans-serif;
             background: #f3f5f8;
-
             color: #1f2937;
-
         }
-
-
         /* ============================================================
            CABEÇALHO
            ============================================================ */
-
+        
         header {
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #172554,
-                    #1d4ed8
-                );
-
+            background: linear-gradient( 135deg, #172554, #1d4ed8);
             color: white;
-
             padding: 30px;
-
-            box-shadow:
-                0 3px 12px rgba(0,0,0,0.12);
-
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
         }
-
-
+        
         header h1 {
-
             margin: 0 0 8px;
-
             font-size: 28px;
-
             font-weight: 700;
-
         }
-
-
+        
         header p {
-
             margin: 0;
-
             opacity: 0.88;
-
             font-size: 14px;
-
         }
-
-
         /* ============================================================
            CONTAINER
            ============================================================ */
-
+        
         .container {
-
             max-width: 1450px;
-
             margin: 0 auto;
-
             padding: 25px;
-
         }
-
-
         /* ============================================================
            BARRA DE CONTROLE
            ============================================================ */
-
+        
         .barra-controle {
-
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
-
             gap: 15px;
-
             margin-bottom: 20px;
-
             flex-wrap: wrap;
-
         }
-
-
+        
         .status {
-
             background: white;
-
             border-radius: 10px;
-
             padding: 12px 16px;
-
-            box-shadow:
-                0 2px 8px rgba(0,0,0,0.05);
-
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             font-size: 13px;
-
             border: 1px solid #e5e7eb;
-
         }
-
-
+        
         .status.ok {
-
             color: #166534;
-
         }
-
-
+        
         .status.erro {
-
             color: #b91c1c;
-
         }
-
-
+        
         .status.carregando {
-
             color: #92400e;
-
         }
-
-
+        
         button {
-
             border: none;
-
             background: #2563eb;
-
             color: white;
-
             padding: 11px 17px;
-
             border-radius: 8px;
-
             cursor: pointer;
-
             font-size: 13px;
-
             font-weight: bold;
-
-            transition:
-                background 0.2s,
-                transform 0.1s;
-
+            transition: background 0.2s, transform 0.1s;
         }
-
-
+        
         button:hover {
-
             background: #1d4ed8;
-
         }
-
-
+        
         button:active {
-
             transform: scale(0.98);
-
         }
-
-
         /* ============================================================
            FILTROS
            ============================================================ */
-
+        
         .filtros-card {
-
             background: white;
-
             border-radius: 15px;
-
             padding: 24px;
-
             margin-bottom: 25px;
-
             border: 1px solid #e5e7eb;
-
-            box-shadow:
-                0 3px 12px rgba(0,0,0,0.06);
-
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
         }
-
-
+        
         .filtros-cabecalho {
-
             display: flex;
-
             align-items: flex-start;
-
             justify-content: space-between;
-
             gap: 20px;
-
             margin-bottom: 22px;
-
         }
-
-
+        
         .filtros-cabecalho h2 {
-
             margin: 0 0 5px;
-
             font-size: 20px;
-
             color: #111827;
-
         }
-
-
+        
         .filtros-cabecalho p {
-
             margin: 0;
-
             color: #6b7280;
-
             font-size: 13px;
-
         }
-
-
+        
         .filtros-grid {
-
             display: grid;
-
-            grid-template-columns:
-                repeat(5, 1fr);
-
+            grid-template-columns: repeat(5, 1fr);
             gap: 15px;
-
         }
-
-
+        
         .filtro {
-
             display: flex;
-
             flex-direction: column;
-
             gap: 7px;
-
         }
-
-
+        
         .filtro label {
-
             font-size: 12px;
-
             font-weight: bold;
-
             color: #4b5563;
-
         }
-
-
+        
         .filtro select {
-
             width: 100%;
-
             height: 42px;
-
-            padding:
-                0 12px;
-
-            border:
-                1px solid #d1d5db;
-
+            padding: 0 12px;
+            border: 1px solid #d1d5db;
             border-radius: 8px;
-
             background: white;
-
             color: #1f2937;
-
             font-size: 13px;
-
             cursor: pointer;
-
         }
-
-
+        
         .filtro select:hover {
-
             border-color: #9ca3af;
-
         }
-
-
+        
         .filtro select:focus {
-
             outline: none;
-
             border-color: #2563eb;
-
-            box-shadow:
-                0 0 0 3px
-                rgba(37,99,235,0.12);
-
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
         }
-
-
+        
         .btn-limpar {
-
             background: #f3f4f6;
-
             color: #374151;
-
-            border:
-                1px solid #d1d5db;
-
+            border: 1px solid #d1d5db;
         }
-
-
+        
         .btn-limpar:hover {
-
             background: #e5e7eb;
-
         }
-
-
+        
         .filtros-status {
-
             margin-top: 20px;
-
             padding-top: 16px;
-
-            border-top:
-                1px solid #e5e7eb;
-
+            border-top: 1px solid #e5e7eb;
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
-
             gap: 15px;
-
             font-size: 13px;
-
             color: #6b7280;
-
         }
-
-
+        
         .filtros-status strong {
-
             color: #1e3a8a;
-
             font-size: 14px;
-
         }
-
-
         /* ============================================================
            CARDS
            ============================================================ */
-
+        
         .cards {
-
             display: grid;
-
-            grid-template-columns:
-                repeat(4, 1fr);
-
+            grid-template-columns: repeat(4, 1fr);
             gap: 18px;
-
             margin-bottom: 25px;
-
         }
-
-
+        
         .card {
-
             background: white;
-
             border-radius: 14px;
-
             padding: 22px;
-
-            border:
-                1px solid #e5e7eb;
-
-            box-shadow:
-                0 3px 12px rgba(0,0,0,0.05);
-
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
             min-height: 125px;
-
         }
-
-
+        
         .card .titulo {
-
             font-size: 13px;
-
             color: #6b7280;
-
             margin-bottom: 10px;
-
         }
-
-
+        
         .card .valor {
-
             font-size: 29px;
-
             font-weight: 700;
-
             color: #1e3a8a;
-
             line-height: 1.2;
-
         }
-
-
+        
         .card .subtitulo {
-
             margin-top: 8px;
-
             font-size: 11px;
-
             color: #9ca3af;
-
         }
-
-
         /* ============================================================
            GRÁFICOS
            ============================================================ */
-
+        
         .graficos {
-
             display: grid;
-
-            grid-template-columns:
-                repeat(2, 1fr);
-
+            grid-template-columns: repeat(2, 1fr);
             gap: 22px;
-
         }
-
-
+        
         .grafico-card {
-
             background: white;
-
             border-radius: 14px;
-
             padding: 22px;
-
-            border:
-                1px solid #e5e7eb;
-
-            box-shadow:
-                0 3px 12px rgba(0,0,0,0.05);
-
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
         }
-
-
+        
         .grafico-card h2 {
-
-            margin:
-                0 0 5px;
-
+            margin: 0 0 5px;
             font-size: 18px;
-
             color: #111827;
-
         }
-
-
+        
         .grafico-descricao {
-
-            margin:
-                0 0 18px;
-
+            margin: 0 0 18px;
             color: #6b7280;
-
             font-size: 12px;
-
             line-height: 1.5;
-
         }
-
-
+        
         .grafico-container {
-
             position: relative;
-
-            height: 350px;
-
+            height: 380px;
         }
-
-
+        
         .grafico-likert {
-
-            height: 430px;
-
+            height: 560px;
         }
-
-
+        
         .grafico-largo {
-
-            grid-column:
-                span 2;
-
+            grid-column: span 2;
         }
-
-
+        
+        .tabela-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            background: #ffffff;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8);
+        }
+        
+        .tabela-perfis-interpolacao {
+            width: max-content;
+            min-width: 1180px;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 12px;
+        }
+        
+        .tabela-perfis-interpolacao th,
+        .tabela-perfis-interpolacao td {
+            padding: 10px 8px;
+            border-right: 1px solid rgba(255, 255, 255, .75);
+            border-bottom: 1px solid #e5e7eb;
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .tabela-perfis-interpolacao th {
+            background: #f8fafc;
+            color: #374151;
+            font-weight: 700;
+            white-space: normal;
+            line-height: 1.3;
+        }
+        
+        .tabela-perfis-interpolacao th.pergunta-header {
+            width: 145px;
+            min-width: 145px;
+            max-width: 145px;
+            height: 112px;
+            vertical-align: bottom;
+            font-size: 11px;
+        }
+        
+        .tabela-perfis-interpolacao th:first-child,
+        .tabela-perfis-interpolacao td:first-child {
+            text-align: left;
+            position: sticky;
+            left: 0;
+            min-width: 185px;
+            z-index: 3;
+        }
+        
+        .tabela-perfis-interpolacao th:first-child {
+            background: #eef2ff;
+            z-index: 4;
+        }
+        
+        .tabela-perfis-interpolacao td:first-child {
+            background: #ffffff;
+        }
+        
+        .tabela-perfis-interpolacao tbody tr:hover td:first-child {
+            background: #f8fafc;
+        }
+        
+        .tabela-perfis-interpolacao td {
+            font-weight: 700;
+            min-width: 78px;
+            transition: transform .12s ease, filter .12s ease;
+        }
+        
+        .tabela-perfis-interpolacao td:not(:first-child):not(:last-child):hover {
+            transform: scale(1.04);
+            filter: saturate(1.08);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .tabela-perfis-interpolacao .n-perfil {
+            color: #6b7280;
+            font-weight: 400;
+        }
+        
+        .tabela-perfis {
+            width: max-content;
+            min-width: 1180px;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 12px;
+        }
+        
+        .tabela-perfis th,
+        .tabela-perfis td {
+            padding: 10px 8px;
+            border-right: 1px solid rgba(255, 255, 255, .75);
+            border-bottom: 1px solid #e5e7eb;
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .tabela-perfis th {
+            background: #f8fafc;
+            color: #374151;
+            font-weight: 700;
+            white-space: normal;
+            line-height: 1.3;
+        }
+        
+        .tabela-perfis th.pergunta-header {
+            width: 145px;
+            min-width: 145px;
+            max-width: 145px;
+            height: 112px;
+            vertical-align: bottom;
+            font-size: 11px;
+        }
+        
+        .tabela-perfis th:first-child,
+        .tabela-perfis td:first-child {
+            text-align: left;
+            position: sticky;
+            left: 0;
+            min-width: 185px;
+            z-index: 3;
+        }
+        
+        .tabela-perfis th:first-child {
+            background: #eef2ff;
+            z-index: 4;
+        }
+        
+        .tabela-perfis td:first-child {
+            background: #ffffff;
+        }
+        
+        .tabela-perfis tbody tr:hover td:first-child {
+            background: #f8fafc;
+        }
+        
+        .tabela-perfis td {
+            font-weight: 700;
+            min-width: 78px;
+            transition: transform .12s ease, filter .12s ease;
+        }
+        
+        .tabela-perfis td:not(:first-child):not(:last-child):hover {
+            transform: scale(1.04);
+            filter: saturate(1.08);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .tabela-perfis .n-perfil {
+            color: #6b7280;
+            font-weight: 400;
+        }
+        
+        .legenda-escala {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px 12px;
+            margin-top: 12px;
+            padding: 10px 12px;
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 9px;
+            color: #6b7280;
+            font-size: 11px;
+        }
+        
+        .legenda-titulo {
+            color: #374151;
+            font-weight: 700;
+        }
+        
+        .legenda-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: #4b5563;
+        }
+        
+        .legenda-item i {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 0, 0, .08);
+        }
+        
+        .legenda-observacao {
+            flex-basis: 100%;
+            color: #9ca3af;
+        }
+        
+        .nota-metodologica {
+            margin-top: 12px;
+            padding: 12px 14px;
+            border-left: 4px solid #2563eb;
+            background: #eff6ff;
+            color: #374151;
+            font-size: 12px;
+            line-height: 1.6;
+            border-radius: 6px;
+        }
         /* ============================================================
            SÍNTESE
            ============================================================ */
-
+        
         .sintese {
-
             background: white;
-
             border-radius: 14px;
-
             padding: 25px;
-
             margin-top: 22px;
-
-            border:
-                1px solid #e5e7eb;
-
-            box-shadow:
-                0 3px 12px rgba(0,0,0,0.05);
-
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
         }
-
-
+        
         .sintese h2 {
-
-            margin:
-                0 0 12px;
-
+            margin: 0 0 12px;
             font-size: 19px;
-
             color: #111827;
-
         }
-
-
+        
         .sintese p {
-
             margin: 0;
-
             line-height: 1.75;
-
             color: #4b5563;
-
             font-size: 14px;
-
         }
-
-
         /* ============================================================
            ERRO
            ============================================================ */
-
+        
         .erro-box {
-
             background: #fee2e2;
-
             color: #991b1b;
-
-            border:
-                1px solid #fecaca;
-
+            border: 1px solid #fecaca;
             border-radius: 10px;
-
             padding: 18px;
-
             margin-bottom: 20px;
-
             line-height: 1.5;
-
             font-size: 13px;
-
         }
-
-
+        
         .oculto {
-
             display: none;
-
         }
-
-
         /* ============================================================
            RESPONSIVIDADE
            ============================================================ */
-
+        
         @media (max-width: 1200px) {
-
             .filtros-grid {
-
-                grid-template-columns:
-                    repeat(3, 1fr);
-
+                grid-template-columns: repeat(3, 1fr);
             }
-
         }
-
-
+        
         @media (max-width: 1000px) {
-
             .cards {
-
-                grid-template-columns:
-                    repeat(2, 1fr);
-
+                grid-template-columns: repeat(2, 1fr);
             }
-
-
             .graficos {
-
                 grid-template-columns: 1fr;
-
             }
-
-
             .grafico-largo {
-
                 grid-column: span 1;
-
             }
-
-
             .filtros-grid {
-
-                grid-template-columns:
-                    repeat(2, 1fr);
-
+                grid-template-columns: repeat(2, 1fr);
             }
-
         }
-
-
+        
         @media (max-width: 600px) {
-
             .container {
-
                 padding: 15px;
-
             }
-
-
             header {
-
                 padding: 22px 18px;
-
             }
-
-
             header h1 {
-
                 font-size: 22px;
-
             }
-
-
             .cards {
-
                 grid-template-columns: 1fr;
-
             }
-
-
             .filtros-grid {
-
                 grid-template-columns: 1fr;
-
             }
-
-
             .filtros-cabecalho {
-
                 flex-direction: column;
-
             }
-
-
             .filtros-status {
-
                 flex-direction: column;
-
                 align-items: flex-start;
-
             }
-
-
             .grafico-container {
-
                 height: 320px;
-
             }
-
-
             .grafico-likert {
-
                 height: 470px;
-
             }
-
         }
-
     </style>
 
 </head>
@@ -765,8 +616,7 @@
         </h1>
 
         <p>
-            Análise dos resultados da pesquisa acadêmica
-            sobre liderança no ambiente de trabalho.
+            Análise dos resultados da pesquisa acadêmica sobre liderança no ambiente de trabalho.
         </p>
 
     </header>
@@ -781,10 +631,7 @@
 
         <div class="barra-controle">
 
-            <div
-                id="status"
-                class="status carregando"
-            >
+            <div id="status" class="status carregando">
                 Carregando dados...
             </div>
 
@@ -802,16 +649,10 @@
              ERRO
              ======================================================== -->
 
-        <div
-            id="erro"
-            class="erro-box oculto"
-        ></div>
+        <div id="erro" class="erro-box oculto"></div>
 
 
-        <section
-            id="dashboard"
-            class="oculto"
-        >
+        <section id="dashboard" class="oculto">
 
 
             <!-- ====================================================
@@ -830,17 +671,13 @@
                         </h2>
 
                         <p>
-                            Utilize os filtros para analisar
-                            diferentes grupos de participantes.
+                            Utilize os filtros para analisar diferentes grupos de participantes.
                         </p>
 
                     </div>
 
 
-                    <button
-                        class="btn-limpar"
-                        onclick="limparFiltros()"
-                    >
+                    <button class="btn-limpar" onclick="limparFiltros()">
                         Limpar filtros
                     </button>
 
@@ -856,10 +693,7 @@
                             Sexo
                         </label>
 
-                        <select
-                            id="filtroSexo"
-                            onchange="aplicarFiltros()"
-                        >
+                        <select id="filtroSexo" onchange="aplicarFiltros()">
 
                             <option value="">
                                 Todos
@@ -876,10 +710,7 @@
                             Idade
                         </label>
 
-                        <select
-                            id="filtroIdade"
-                            onchange="aplicarFiltros()"
-                        >
+                        <select id="filtroIdade" onchange="aplicarFiltros()">
 
                             <option value="">
                                 Todas
@@ -916,10 +747,7 @@
                             Semestre
                         </label>
 
-                        <select
-                            id="filtroSemestre"
-                            onchange="aplicarFiltros()"
-                        >
+                        <select id="filtroSemestre" onchange="aplicarFiltros()">
 
                             <option value="">
                                 Todos
@@ -936,10 +764,7 @@
                             Turno de estudo
                         </label>
 
-                        <select
-                            id="filtroTurnoEstudo"
-                            onchange="aplicarFiltros()"
-                        >
+                        <select id="filtroTurnoEstudo" onchange="aplicarFiltros()">
 
                             <option value="">
                                 Todos
@@ -976,10 +801,7 @@
                             Turno de trabalho
                         </label>
 
-                        <select
-                            id="filtroTurnoTrabalho"
-                            onchange="aplicarFiltros()"
-                        >
+                        <select id="filtroTurnoTrabalho" onchange="aplicarFiltros()">
 
                             <option value="">
                                 Todos
@@ -996,10 +818,7 @@
                             Tempo de empresa
                         </label>
 
-                        <select
-                            id="filtroTempoEmpresa"
-                            onchange="aplicarFiltros()"
-                        >
+                        <select id="filtroTempoEmpresa" onchange="aplicarFiltros()">
 
                             <option value="">
                                 Todos
@@ -1010,7 +829,7 @@
                     </div>
 
 
-                   <!-- <div class="filtro">
+                    <!-- <div class="filtro">
 
                         <label for="filtroRelacao">
                             Relação de trabalho
@@ -1083,17 +902,11 @@
                         Respostas analisadas
                     </div>
 
-                    <div
-                        class="valor"
-                        id="totalRespostas"
-                    >
+                    <div class="valor" id="totalRespostas">
                         0
                     </div>
 
-                    <div
-                        class="subtitulo"
-                        id="totalRespostasSubtitulo"
-                    >
+                    <div class="subtitulo" id="totalRespostasSubtitulo">
                         participantes
                     </div>
 
@@ -1103,18 +916,15 @@
                 <div class="card">
 
                     <div class="titulo">
-                        Média geral de liderança
+                        Índice de percepção da liderança
                     </div>
 
-                    <div
-                        class="valor"
-                        id="mediaLideranca"
-                    >
+                    <div class="valor" id="mediaLideranca">
                         -
                     </div>
 
                     <div class="subtitulo">
-                        escala de 1 a 5
+                        escala de 1 a 5 • índice exploratório
                     </div>
 
                 </div>
@@ -1123,18 +933,15 @@
                 <div class="card">
 
                     <div class="titulo">
-                        Média de motivação
+                        Média dos resultados
                     </div>
 
-                    <div
-                        class="valor"
-                        id="mediaMotivacao"
-                    >
+                    <div class="valor" id="mediaMotivacao">
                         -
                     </div>
 
                     <div class="subtitulo">
-                        escala de 1 a 5
+                        Q10–Q14 • escala de 1 a 5
                     </div>
 
                 </div>
@@ -1146,10 +953,7 @@
                         Perfil predominante
                     </div>
 
-                    <div
-                        class="valor"
-                        id="perfilPredominante"
-                    >
+                    <div class="valor" id="perfilPredominante">
                         -
                     </div>
 
@@ -1184,9 +988,7 @@
 
                     <div class="grafico-container">
 
-                        <canvas
-                            id="graficoIdade"
-                        ></canvas>
+                        <canvas id="graficoIdade"></canvas>
 
                     </div>
 
@@ -1207,9 +1009,7 @@
 
                     <div class="grafico-container">
 
-                        <canvas
-                            id="graficoSexo"
-                        ></canvas>
+                        <canvas id="graficoSexo"></canvas>
 
                     </div>
 
@@ -1225,15 +1025,12 @@
                     </h2>
 
                     <p class="grafico-descricao">
-                        Distribuição dos participantes segundo o turno
-                        de trabalho.
+                        Distribuição dos participantes segundo o turno de trabalho.
                     </p>
 
                     <div class="grafico-container">
 
-                        <canvas
-                            id="graficoTurno"
-                        ></canvas>
+                        <canvas id="graficoTurno"></canvas>
 
                     </div>
 
@@ -1254,9 +1051,7 @@
 
                     <div class="grafico-container">
 
-                        <canvas
-                            id="graficoPerfil"
-                        ></canvas>
+                        <canvas id="graficoPerfil"></canvas>
 
                     </div>
 
@@ -1274,17 +1069,12 @@
                     </h2>
 
                     <p class="grafico-descricao">
-                        Distribuição percentual das respostas em cada
-                        dimensão da escala Likert.
+                        Distribuição percentual das respostas em cada dimensão da escala Likert
                     </p>
 
-                    <div
-                        class="grafico-container grafico-likert"
-                    >
+                    <div class="grafico-container grafico-likert">
 
-                        <canvas
-                            id="graficoPercepcao"
-                        ></canvas>
+                        <canvas id="graficoPercepcao"></canvas>
 
                     </div>
 
@@ -1302,18 +1092,69 @@
                     </h2>
 
                     <p class="grafico-descricao">
-                        Distribuição percentual das respostas em cada
-                        dimensão avaliada.
+                        Distribuição percentual das respostas em cada dimensão avaliada
                     </p>
 
-                    <div
-                        class="grafico-container grafico-likert"
-                    >
+                    <div class="grafico-container grafico-likert">
 
-                        <canvas
-                            id="graficoMotivacao"
-                        ></canvas>
+                        <canvas id="graficoMotivacao"></canvas>
 
+                    </div>
+
+                </div>
+
+
+                <!-- ==================================================
+                     COERÊNCIA: PERFIL × COMPORTAMENTOS
+                     ================================================== -->
+
+                <div class="grafico-card grafico-largo">
+
+                    <h2>
+                        Perfil percebido versus comportamentos de liderança
+                    </h2>
+
+                    <p class="grafico-descricao">
+                        Médias das oito perguntas de percepção dentro de cada perfil informado. As colunas mostram as perguntas completas; a cor segue a mesma escala Likert de 1 a 5 e interpola os valores decimais. A tabela não cria o perfil a partir das médias; ela verifica
+                        se o perfil declarado é coerente com os comportamentos observados
+                    </p>
+
+                    <div class="tabela-wrapper">
+                        <table class="tabela-perfis-interpolacao">
+                            <thead id="cabecalhoTabelaPerfis"></thead>
+                            <tbody id="corpoTabelaPerfis"></tbody>
+                        </table>
+                    </div>
+
+                    <div class="legenda-escala" aria-label="Escala de cores da matriz">
+                        <span class="legenda-titulo">Escala da média:</span>
+                        <span class="legenda-item"><i style="background:#ff5252"></i>1,0</span>
+                        <span class="legenda-item"><i style="background:#f8c9aa"></i>2,0</span>
+                        <span class="legenda-item"><i style="background:#dce8f3"></i>3,0</span>
+                        <span class="legenda-item"><i style="background:#8eb9df"></i>4,0</span>
+                        <span class="legenda-item"><i style="background:#5795cc"></i>5,0</span>
+                        <span class="legenda-observacao">Os valores decimais recebem uma cor intermediária.</span>
+                    </div>
+
+                </div>
+
+
+                <!-- ==================================================
+                     RESULTADOS × PERFIL
+                     ================================================== -->
+
+                <div class="grafico-card grafico-largo">
+
+                    <h2>
+                        Resultados percebidos por perfil de liderança
+                    </h2>
+
+                    <p class="grafico-descricao">
+                        Resultados percebidos segundo o perfil predominante indicado pelo participante. O gráfico mostra associação descritiva, não efeito causal.
+                    </p>
+
+                    <div class="grafico-container grafico-likert">
+                        <canvas id="graficoResultadosPerfil"></canvas>
                     </div>
 
                 </div>
@@ -1330,15 +1171,12 @@
                     </h2>
 
                     <p class="grafico-descricao">
-                        Frequência dos fatores selecionados pelos
-                        participantes.
+                        Frequência dos fatores selecionados pelos participantes.
                     </p>
 
                     <div class="grafico-container">
 
-                        <canvas
-                            id="graficoFatores"
-                        ></canvas>
+                        <canvas id="graficoFatores"></canvas>
 
                     </div>
 
@@ -1362,6 +1200,14 @@
                     Aguardando dados...
                 </p>
 
+                <div class="nota-metodologica">
+                    <strong>Como interpretar:</strong> os resultados apresentam a percepção dos participantes sobre as práticas de liderança, considerando aspectos como participação nas decisões, autonomia, comunicação, orientação, confiança, reconhecimento
+                    e capacidade de adaptação. Também são apresentados os efeitos percebidos dessas práticas sobre motivação, satisfação, participação, autonomia e envolvimento.
+                    <br><br> A classificação do perfil de liderança representa a percepção predominante dos participantes. As diferentes práticas podem aparecer simultaneamente, pois um mesmo líder pode combinar diferentes formas de conduzir a equipe
+                    de acordo com a situação. Nas análises gerais, as respostas relacionadas à centralização das decisões são interpretadas em sentido inverso às demais dimensões, de modo que índices mais elevados representem uma percepção mais favorável
+                    das práticas de liderança.
+                </div>
+
             </div>
 
 
@@ -1372,11 +1218,9 @@
 
 
     <script>
-
-
         /* ============================================================
-           CONFIGURAÇÃO
-           ============================================================ */
+                                                                                                           CONFIGURAÇÃO
+                                                                                                           ============================================================ */
 
 
         const API_URL =
@@ -1403,42 +1247,50 @@
 
             {
                 key: "p1",
-                label: "Participação nas decisões"
+                label: "Participação nas decisões",
+                pergunta: "Meu líder permite que os integrantes da equipe participem das decisões que afetam suas atividades"
             },
 
             {
                 key: "p2",
-                label: "Centralização das decisões"
+                label: "Centralização das decisões",
+                pergunta: "As principais decisões são concentradas no líder, cabendo à equipe principalmente cumprir suas determinações"
             },
 
             {
                 key: "p3",
-                label: "Comunicação da liderança"
+                label: "Autonomia para decidir",
+                pergunta: "Meu líder dá liberdade e confiança para que eu tome decisões dentro das minhas responsabilidades"
             },
 
             {
                 key: "p4",
-                label: "Reconhecimento"
+                label: "Comunicação e escuta",
+                pergunta: "Meu líder ouve e considera as opiniões e sugestões dos integrantes da equipe"
             },
 
             {
                 key: "p5",
-                label: "Confiança na liderança"
+                label: "Orientação e acompanhamento",
+                pergunta: "Meu líder acompanha as tarefas e deixa claro o que deve ser feito"
             },
 
             {
                 key: "p6",
-                label: "Relacionamento"
+                label: "Confiança e relacionamento",
+                pergunta: "Existe confiança e respeito entre mim, a equipe e a liderança"
             },
 
             {
                 key: "p7",
-                label: "Apoio aos colaboradores"
+                label: "Reconhecimento",
+                pergunta: "A dedicação e o esforço dos integrantes da equipe são reconhecidos pelo líder"
             },
 
             {
                 key: "p8",
-                label: "Adaptação da liderança"
+                label: "Adaptação da liderança",
+                pergunta: "Meu líder adapta a orientação, o acompanhamento e o apoio de acordo com a situação e as necessidades da equipe"
             }
 
         ];
@@ -1458,12 +1310,12 @@
 
             {
                 key: "m12",
-                label: "Reconhecimento"
+                label: "Participação e pertencimento"
             },
 
             {
                 key: "m13",
-                label: "Intenção de permanecer"
+                label: "Autonomia"
             },
 
             {
@@ -1513,35 +1365,25 @@
 
         const CONFIG_FILTROS = {
 
-            filtroSexo:
-                "sexo",
+            filtroSexo: "sexo",
 
-            filtroIdade:
-                "idade",
+            filtroIdade: "idade",
 
-            filtroCurso:
-                "curso",
+            filtroCurso: "curso",
 
-            filtroSemestre:
-                "semestre",
+            filtroSemestre: "semestre",
 
-            filtroTurnoEstudo:
-                "turnoEstudo",
+            filtroTurnoEstudo: "turnoEstudo",
 
-            filtroTrabalha:
-                "trabalha",
+            filtroTrabalha: "trabalha",
 
-            filtroTurnoTrabalho:
-                "turnoTrabalho",
+            filtroTurnoTrabalho: "turnoTrabalho",
 
-            filtroTempoEmpresa:
-                "tempoEmpresa",
+            filtroTempoEmpresa: "tempoEmpresa",
 
-            filtroRelacao:
-                "relacaoTrabalho",
+            filtroRelacao: "relacaoTrabalho",
 
-            filtroPerfil:
-                "perfil"
+            filtroPerfil: "perfil"
 
         };
 
@@ -1553,18 +1395,18 @@
 
         function normalizar(valor) {
 
-            return String(valor ?? "")
+            return String(valor ? valor : "")
 
-                .trim()
+            .trim()
 
-                .toLowerCase()
+            .toLowerCase()
 
-                .normalize("NFD")
+            .normalize("NFD")
 
-                .replace(
-                    /[\u0300-\u036f]/g,
-                    ""
-                );
+            .replace(
+                /[\u0300-\u036f]/g,
+                ""
+            );
 
         }
 
@@ -1586,11 +1428,11 @@
             const chave =
                 Object.keys(objeto || {})
 
-                    .find(
-                        k =>
-                            normalizar(k)
-                            === chaveProcurada
-                    );
+            .find(
+                k =>
+                normalizar(k) ===
+                chaveProcurada
+            );
 
 
             return chave || null;
@@ -1660,8 +1502,8 @@
 
                 contador[valor] =
                     (
-                        contador[valor]
-                        || 0
+                        contador[valor] ||
+                        0
                     ) + 1;
 
             });
@@ -1785,6 +1627,71 @@
 
 
         /* ============================================================
+           ÍNDICE DE PERCEPÇÃO COM DIREÇÃO ALINHADA
+           ============================================================ */
+
+        /*
+         * P2 é a única dimensão de P1–P8 cuja afirmação representa
+         * centralização: quanto maior a resposta, maior a centralização.
+         * Para um índice global de "percepção positiva da liderança",
+         * somente P2 é invertida: P2' = 6 - P2.
+         *
+         * O índice é exploratório e NÃO classifica o estilo de liderança.
+         * A classificação do perfil vem diretamente da Q9 ("perfil").
+         */
+
+        function valorLikert(linha, coluna) {
+
+            const valor = parseFloat(
+                String(valorColuna(linha, coluna))
+                .replace(",", ".")
+            );
+
+            return Number.isFinite(valor) && valor >= 1 && valor <= 5 ?
+                valor :
+                null;
+        }
+
+
+        function indicePercepcaoLinha(linha) {
+
+            const valores = PERCEPCAO_COLS.map(coluna => {
+
+                const valor = valorLikert(linha, coluna.key);
+
+                if (valor === null) {
+                    return null;
+                }
+
+                return coluna.key === "p2" ?
+                    6 - valor :
+                    valor;
+
+            }).filter(valor => valor !== null);
+
+            if (!valores.length) {
+                return null;
+            }
+
+            return valores.reduce((a, b) => a + b, 0) / valores.length;
+        }
+
+
+        function mediaIndicePercepcao(dados) {
+
+            const valores = dados
+                .map(indicePercepcaoLinha)
+                .filter(valor => valor !== null);
+
+            if (!valores.length) {
+                return null;
+            }
+
+            return valores.reduce((a, b) => a + b, 0) / valores.length;
+        }
+
+
+        /* ============================================================
            COLUNAS EXISTENTES
            ============================================================ */
 
@@ -1875,8 +1782,7 @@
 
         const pluginPercentuaisLikert = {
 
-            id:
-                "pluginPercentuaisLikert",
+            id: "pluginPercentuaisLikert",
 
 
             afterDatasetsDraw(chart) {
@@ -1911,8 +1817,7 @@
                                     );
 
 
-                                if (
-                                    !valor ||
+                                if (!valor ||
                                     valor < 7
                                 ) {
 
@@ -1934,8 +1839,8 @@
 
                                 const x =
                                     (
-                                        props.base
-                                        + props.x
+                                        props.base +
+                                        props.x
                                     ) / 2;
 
 
@@ -1947,9 +1852,9 @@
 
 
                                 ctx.fillStyle =
-                                    datasetIndex === 2
-                                        ? "#111827"
-                                        : "#ffffff";
+                                    datasetIndex === 2 ?
+                                    "#111827" :
+                                    "#ffffff";
 
 
                                 ctx.font =
@@ -1965,8 +1870,8 @@
 
 
                                 ctx.fillText(
-                                    valor.toFixed(0)
-                                    + "%",
+                                    valor.toFixed(0) +
+                                    "%",
                                     x,
                                     y
                                 );
@@ -2027,11 +1932,11 @@
 
                 if (
                     Object.prototype
-                        .hasOwnProperty
-                        .call(
-                            contagens,
-                            valor
-                        )
+                    .hasOwnProperty
+                    .call(
+                        contagens,
+                        valor
+                    )
                 ) {
 
                     contagens[valor]++;
@@ -2043,10 +1948,10 @@
 
             const total =
                 Object.values(contagens)
-                    .reduce(
-                        (a, b) => a + b,
-                        0
-                    );
+                .reduce(
+                    (a, b) => a + b,
+                    0
+                );
 
 
             if (!total) {
@@ -2064,10 +1969,10 @@
 
             return LIKERT.valores.map(
                 valor =>
-                    (
-                        contagens[valor]
-                        / total
-                    ) * 100
+                (
+                    contagens[valor] /
+                    total
+                ) * 100
             );
 
         }
@@ -2076,6 +1981,31 @@
         /* ============================================================
            GRÁFICO LIKERT
            ============================================================ */
+
+
+        function quebrarRotuloGrafico(texto, limite) {
+
+            const palavras = String(texto).split(" ");
+            const linhas = [];
+            let linha = "";
+
+            palavras.forEach(palavra => {
+                const candidata = linha ? `${linha} ${palavra}` : palavra;
+
+                if (candidata.length > limite && linha) {
+                    linhas.push(linha);
+                    linha = palavra;
+                } else {
+                    linha = candidata;
+                }
+            });
+
+            if (linha) {
+                linhas.push(linha);
+            }
+
+            return linhas;
+        }
 
 
         function criarGraficoLikert(
@@ -2095,17 +2025,19 @@
             const labels =
                 colunas.map(
                     coluna =>
-                        coluna.label
+                    coluna.pergunta ?
+                    quebrarRotuloGrafico(coluna.pergunta, 42) :
+                    coluna.label
                 );
 
 
             const distribuicoes =
                 colunas.map(
                     coluna =>
-                        distribuicaoLikert(
-                            dados,
-                            coluna.key
-                        )
+                    distribuicaoLikert(
+                        dados,
+                        coluna.key
+                    )
                 );
 
 
@@ -2134,35 +2066,29 @@
 
                         return {
 
-                            label:
-                                LIKERT.labels[
+                            label: LIKERT.labels[
+                                indice
+                            ],
+
+
+                            data: distribuicoes.map(
+                                distribuicao =>
+                                distribuicao[
                                     indice
-                                ],
+                                ]
+                            ),
 
 
-                            data:
-                                distribuicoes.map(
-                                    distribuicao =>
-                                        distribuicao[
-                                            indice
-                                        ]
-                                ),
+                            backgroundColor: cores[indice],
 
 
-                            backgroundColor:
-                                cores[indice],
+                            borderColor: "#ffffff",
 
 
-                            borderColor:
-                                "#ffffff",
+                            borderWidth: 1,
 
 
-                            borderWidth:
-                                1,
-
-
-                            borderSkipped:
-                                false
+                            borderSkipped: false
 
                         };
 
@@ -2171,11 +2097,9 @@
 
 
             return criarGrafico(
-                id,
-                {
+                id, {
 
-                    type:
-                        "bar",
+                    type: "bar",
 
 
                     plugins: [
@@ -2196,22 +2120,18 @@
 
                     options: {
 
-                        indexAxis:
-                            "y",
+                        indexAxis: "y",
 
 
-                        responsive:
-                            true,
+                        responsive: true,
 
 
-                        maintainAspectRatio:
-                            false,
+                        maintainAspectRatio: false,
 
 
                         animation: {
 
-                            duration:
-                                400
+                            duration: 400
 
                         },
 
@@ -2220,29 +2140,25 @@
 
                             x: {
 
-                                stacked:
-                                    true,
+                                stacked: true,
 
 
-                                min:
-                                    0,
+                                min: 0,
 
 
-                                max:
-                                    100,
+                                max: 100,
 
 
                                 ticks: {
 
-                                    callback:
-                                        function(value) {
+                                    callback: function(value) {
 
-                                            return (
-                                                value
-                                                + "%"
-                                            );
+                                        return (
+                                            value +
+                                            "%"
+                                        );
 
-                                        },
+                                    },
 
                                     font: {
                                         size: 11
@@ -2253,8 +2169,7 @@
 
                                 grid: {
 
-                                    color:
-                                        "#e5e7eb"
+                                    color: "#e5e7eb"
 
                                 }
 
@@ -2263,14 +2178,12 @@
 
                             y: {
 
-                                stacked:
-                                    true,
+                                stacked: true,
 
 
                                 grid: {
 
-                                    display:
-                                        false
+                                    display: false
 
                                 },
 
@@ -2279,10 +2192,11 @@
 
                                     font: {
 
-                                        size:
-                                            11
+                                        size: 11
 
-                                    }
+                                    },
+
+                                    padding: 10
 
                                 }
 
@@ -2295,28 +2209,23 @@
 
                             legend: {
 
-                                position:
-                                    "bottom",
+                                position: "bottom",
 
 
                                 labels: {
 
-                                    usePointStyle:
-                                        true,
+                                    usePointStyle: true,
 
 
-                                    pointStyle:
-                                        "rectRounded",
+                                    pointStyle: "rectRounded",
 
 
-                                    padding:
-                                        15,
+                                    padding: 15,
 
 
                                     font: {
 
-                                        size:
-                                            11
+                                        size: 11
 
                                     }
 
@@ -2329,27 +2238,29 @@
 
                                 callbacks: {
 
-                                    label:
-                                        function(context) {
+                                    label: function(context) {
 
-                                            return (
+                                        return (
 
-                                                context
-                                                    .dataset
-                                                    .label
+                                            context
+                                            .dataset
+                                            .label
 
-                                                + ": "
+                                            +
+                                            ": "
 
-                                                + Number(
-                                                    context.raw
-                                                )
-                                                .toFixed(1)
+                                            +
+                                            Number(
+                                                context.raw
+                                            )
+                                            .toFixed(1)
 
-                                                + "%"
+                                            +
+                                            "%"
 
-                                            );
+                                        );
 
-                                        }
+                                    }
 
                                 }
 
@@ -2377,122 +2288,120 @@
 
 
             Object.entries(
-                CONFIG_FILTROS
-            )
-            .forEach(
-                (
-                    [id, coluna]
-                ) => {
+                    CONFIG_FILTROS
+                )
+                .forEach(
+                    (
+                        [id, coluna]
+                    ) => {
 
 
-                    const select =
-                        document.getElementById(
-                            id
-                        );
+                        const select =
+                            document.getElementById(
+                                id
+                            );
 
 
-                    if (!select) {
+                        if (!select) {
 
-                        return;
+                            return;
 
-                    }
-
-
-                    const valorAtual =
-                        select.value;
+                        }
 
 
-                    const valores = [
+                        const valorAtual =
+                            select.value;
 
-                        ...new Set(
 
-                            dados
+                        const valores = [
+
+                            ...new Set(
+
+                                dados
 
                                 .map(
                                     linha =>
-                                        String(
-                                            valorColuna(
-                                                linha,
-                                                coluna
-                                            )
-                                        ).trim()
+                                    String(
+                                        valorColuna(
+                                            linha,
+                                            coluna
+                                        )
+                                    ).trim()
                                 )
 
                                 .filter(Boolean)
 
-                        )
+                            )
 
-                    ];
+                        ];
 
 
-                    valores.sort(
-                        (
-                            a,
-                            b
-                        ) =>
+                        valores.sort(
+                            (
+                                a,
+                                b
+                            ) =>
                             a.localeCompare(
                                 b,
-                                "pt-BR",
-                                {
-                                    numeric:
-                                        true
+                                "pt-BR", {
+                                    numeric: true
                                 }
                             )
-                    );
+                        );
 
 
-                    const primeiraOpcao =
-                        select.options[0];
+                        const primeiraOpcao =
+                            select.options[0];
 
 
-                    select.innerHTML =
-                        "";
+                        select.innerHTML =
+                            "";
 
 
-                    select.appendChild(
-                        primeiraOpcao
-                    );
+                        select.appendChild(
+                            primeiraOpcao
+                        );
 
 
-                    valores.forEach(
-                        valor => {
+                        valores.forEach(
+                            valor => {
 
-                            const option =
-                                document
+                                const option =
+                                    document
                                     .createElement(
                                         "option"
                                     );
 
 
-                            option.value =
-                                valor;
+                                option.value =
+                                    valor;
 
 
-                            option.textContent =
-                                valor;
+                                option.textContent =
+                                    valor;
 
 
-                            select.appendChild(
-                                option
-                            );
+                                select.appendChild(
+                                    option
+                                );
+
+                            }
+                        );
+
+
+                        if (
+                            valores.includes(
+                                valorAtual
+                            )
+                        ) {
+
+                            select.value =
+                                valorAtual;
 
                         }
-                    );
-
-
-                    if (
-                        valores.includes(
-                            valorAtual
-                        )
-                    ) {
-
-                        select.value =
-                            valorAtual;
 
                     }
-
-                }
-            );
+                );
 
         }
 
@@ -2509,54 +2418,51 @@
 
 
                     return Object.entries(
-                        CONFIG_FILTROS
-                    )
-                    .every(
-                        (
-                            [id, coluna]
-                        ) => {
+                            CONFIG_FILTROS
+                        )
+                        .every(
+                            (
+                                [id, coluna]
+                            ) => {
 
 
-                            const select =
-                                document.getElementById(
-                                    id
+                                const select =
+                                    document.getElementById(
+                                        id
+                                    );
+
+
+                                if (!select ||
+                                    !select.value
+                                ) {
+
+                                    return true;
+
+                                }
+
+
+                                const valorLinha =
+                                    normalizar(
+                                        valorColuna(
+                                            linha,
+                                            coluna
+                                        )
+                                    );
+
+
+                                const valorFiltro =
+                                    normalizar(
+                                        select.value
+                                    );
+
+
+                                return (
+                                    valorLinha ===
+                                    valorFiltro
                                 );
-
-
-                            if (
-                                !select
-                                ||
-                                !select.value
-                            ) {
-
-                                return true;
 
                             }
-
-
-                            const valorLinha =
-                                normalizar(
-                                    valorColuna(
-                                        linha,
-                                        coluna
-                                    )
-                                );
-
-
-                            const valorFiltro =
-                                normalizar(
-                                    select.value
-                                );
-
-
-                            return (
-                                valorLinha
-                                ===
-                                valorFiltro
-                            );
-
-                        }
-                    );
+                        );
 
                 }
             );
@@ -2589,8 +2495,7 @@
 
 
                         return (
-                            select
-                            &&
+                            select &&
                             select.value
                         );
 
@@ -2603,19 +2508,17 @@
                     "quantidadeFiltrada"
                 )
                 .textContent =
-                    `${dadosFiltrados.length} resposta(s)`;
+                `${dadosFiltrados.length} resposta(s)`;
 
 
-            if (
-                !filtrosAtivos.length
-            ) {
+            if (!filtrosAtivos.length) {
 
                 document
                     .getElementById(
                         "textoFiltro"
                     )
                     .textContent =
-                        "Todos os participantes";
+                    "Todos os participantes";
 
             } else {
 
@@ -2625,9 +2528,9 @@
 
                             const select =
                                 document
-                                    .getElementById(
-                                        id
-                                    );
+                                .getElementById(
+                                    id
+                                );
 
 
                             return select
@@ -2646,9 +2549,8 @@
                         "textoFiltro"
                     )
                     .textContent =
-                        "Filtros ativos: "
-                        +
-                        nomes.join(" • ");
+                    "Filtros ativos: " +
+                    nomes.join(" • ");
 
             }
 
@@ -2669,31 +2571,285 @@
         function limparFiltros() {
 
             Object.keys(
-                CONFIG_FILTROS
-            )
-            .forEach(
-                id => {
+                    CONFIG_FILTROS
+                )
+                .forEach(
+                    id => {
 
-                    const select =
-                        document
+                        const select =
+                            document
                             .getElementById(
                                 id
                             );
 
 
-                    if (select) {
+                        if (select) {
 
-                        select.value =
-                            "";
+                            select.value =
+                                "";
+
+                        }
 
                     }
-
-                }
-            );
+                );
 
 
             aplicarFiltros();
 
+        }
+
+
+        /* ============================================================
+           TABELA: PERFIL × COMPORTAMENTOS
+           ============================================================ */
+
+        function mediaPerfilColuna(dados, perfil, coluna) {
+
+            const valores = dados
+                .filter(linha =>
+                    normalizar(valorColuna(linha, "perfil")) ===
+                    normalizar(perfil)
+                )
+                .map(linha => valorLikert(linha, coluna))
+                .filter(valor => valor !== null);
+
+            if (!valores.length) {
+                return null;
+            }
+
+            return valores.reduce((a, b) => a + b, 0) / valores.length;
+        }
+
+
+        const CORES_LIKERT = [
+            "#ff5252",
+            "#f8c9aa",
+            "#dce8f3",
+            "#8eb9df",
+            "#5795cc"
+        ];
+
+
+        function interpolarCorLikert(valor) {
+
+            if (valor === null || !Number.isFinite(valor)) {
+                return null;
+            }
+
+            const limitado = Math.max(1, Math.min(5, valor));
+            const posicao = limitado - 1;
+            const indice = Math.min(3, Math.floor(posicao));
+            const fracao = posicao - indice;
+
+            function rgb(hex) {
+                return [
+                    parseInt(hex.slice(1, 3), 16),
+                    parseInt(hex.slice(3, 5), 16),
+                    parseInt(hex.slice(5, 7), 16)
+                ];
+            }
+
+            const a = rgb(CORES_LIKERT[indice]);
+            const b = rgb(CORES_LIKERT[indice + 1]);
+
+            const r = Math.round(a[0] + (b[0] - a[0]) * fracao);
+            const g = Math.round(a[1] + (b[1] - a[1]) * fracao);
+            const bl = Math.round(a[2] + (b[2] - a[2]) * fracao);
+
+            return `rgb(${r}, ${g}, ${bl})`;
+        }
+
+
+        function corCelulaMedia(valor) {
+
+            if (valor === null) {
+                return "background:#f9fafb;color:#9ca3af;";
+            }
+
+            const cor = interpolarCorLikert(valor);
+
+            const luminancia =
+                (parseInt(cor.slice(4, 7)) * 299 +
+                    parseInt(cor.slice(9, 12)) * 587 +
+                    parseInt(cor.slice(14, 17)) * 114) / 1000;
+
+            const texto = luminancia < 155 ? "#ffffff" : "#1f2937";
+
+            return `background:${cor};color:${texto};`;
+        }
+
+
+        function criarTabelaPerfis(dados, perfis) {
+
+            const cabecalho =
+                document.getElementById("cabecalhoTabelaPerfis");
+
+            const corpo =
+                document.getElementById("corpoTabelaPerfis");
+
+            if (!cabecalho || !corpo) {
+                return;
+            }
+
+            cabecalho.innerHTML = "";
+            corpo.innerHTML = "";
+
+            const th = document.createElement("tr");
+
+            const primeiro = document.createElement("th");
+            primeiro.textContent = "Perfil";
+            th.appendChild(primeiro);
+
+            PERCEPCAO_COLS.forEach(coluna => {
+                const celula = document.createElement("th");
+                celula.className = "pergunta-header";
+                celula.textContent = coluna.pergunta;
+                celula.title = `${coluna.key.toUpperCase()} — ${coluna.pergunta}`;
+                th.appendChild(celula);
+            });
+
+            const n = document.createElement("th");
+            n.textContent = "n";
+            th.appendChild(n);
+
+            cabecalho.appendChild(th);
+
+            const ordem = [
+                "Centralizador",
+                "Participativo",
+                "Delegador",
+                "Adaptativo",
+                "Não identificável"
+            ];
+
+            const perfisPresentes = ordem.filter(perfil =>
+                Object.prototype.hasOwnProperty.call(perfis, perfil)
+            );
+
+            Object.keys(perfis)
+                .filter(perfil => !ordem.includes(perfil))
+                .forEach(perfil => perfisPresentes.push(perfil));
+
+            perfisPresentes.forEach(perfil => {
+
+                const tr = document.createElement("tr");
+
+                const tdPerfil = document.createElement("td");
+                tdPerfil.innerHTML =
+                    `<strong>${perfil}</strong> ` +
+                    `<span class="n-perfil">(${perfis[perfil]})</span>`;
+                tr.appendChild(tdPerfil);
+
+                PERCEPCAO_COLS.forEach(coluna => {
+
+                    const valor =
+                        mediaPerfilColuna(dados, perfil, coluna.key);
+
+                    const td = document.createElement("td");
+                    td.textContent =
+                        valor === null ? "—" : valor.toFixed(2);
+                    td.style.cssText = corCelulaMedia(valor);
+                    td.title = coluna.label;
+                    tr.appendChild(td);
+
+                });
+
+                const tdN = document.createElement("td");
+                tdN.textContent = perfis[perfil];
+                tdN.className = "n-perfil";
+                tr.appendChild(tdN);
+
+                corpo.appendChild(tr);
+            });
+        }
+
+
+        /* ============================================================
+           GRÁFICO: RESULTADOS × PERFIL
+           ============================================================ */
+
+        function criarGraficoResultadosPerfil(id, dados, perfis) {
+
+            const ordem = [
+                "Centralizador",
+                "Participativo",
+                "Delegador",
+                "Adaptativo",
+                "Não identificável"
+            ];
+
+            const perfisPresentes = ordem.filter(perfil =>
+                Object.prototype.hasOwnProperty.call(perfis, perfil)
+            );
+
+            Object.keys(perfis)
+                .filter(perfil => !ordem.includes(perfil))
+                .forEach(perfil => perfisPresentes.push(perfil));
+
+            if (!perfisPresentes.length) {
+                return null;
+            }
+
+            const datasets = MOTIVACAO_COLS.map((coluna, indice) => ({
+                label: coluna.label,
+                data: perfisPresentes.map(perfil =>
+                    mediaPerfilColuna(dados, perfil, coluna.key)
+                ),
+                borderWidth: 1
+            }));
+
+            return criarGrafico(
+                id, {
+                    type: "bar",
+
+                    data: {
+                        labels: perfisPresentes,
+                        datasets
+                    },
+
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+
+                        scales: {
+                            y: {
+                                min: 1,
+                                max: 5,
+                                ticks: {
+                                    stepSize: 1
+                                },
+                                title: {
+                                    display: true,
+                                    text: "Média (1–5)"
+                                }
+                            }
+                        },
+
+                        plugins: {
+                            legend: {
+                                position: "bottom",
+                                labels: {
+                                    font: {
+                                        size: 10
+                                    }
+                                }
+                            },
+
+                            tooltip: {
+                                callbacks: {
+                                    label: context =>
+                                        `${context.dataset.label}: ` +
+                                        (
+                                            context.raw === null ?
+                                            "—" :
+                                            Number(context.raw).toFixed(2)
+                                        )
+                                }
+                            }
+                        }
+                    }
+                }
+            );
         }
 
 
@@ -2756,7 +2912,7 @@
                     "totalRespostas"
                 )
                 .textContent =
-                    dados.length;
+                dados.length;
 
 
             document
@@ -2764,7 +2920,7 @@
                     "quantidadeFiltrada"
                 )
                 .textContent =
-                    `${dados.length} resposta(s)`;
+                `${dados.length} resposta(s)`;
 
 
             document
@@ -2772,9 +2928,9 @@
                     "totalRespostasSubtitulo"
                 )
                 .textContent =
-                    dados.length === 1
-                        ? "participante"
-                        : "participantes";
+                dados.length === 1 ?
+                "participante" :
+                "participantes";
 
 
             /* ========================================================
@@ -2790,10 +2946,7 @@
 
 
             const mediaLideranca =
-                mediaColunas(
-                    dados,
-                    percepcao
-                );
+                mediaIndicePercepcao(dados);
 
 
             document
@@ -2802,12 +2955,13 @@
                 )
                 .textContent =
 
-                    mediaLideranca !== null
+                mediaLideranca !== null
 
-                        ? mediaLideranca
-                            .toFixed(2)
+                ?
+                mediaLideranca
+                .toFixed(2)
 
-                        : "-";
+            : "-";
 
 
             /* ========================================================
@@ -2835,12 +2989,13 @@
                 )
                 .textContent =
 
-                    mediaMot !== null
+                mediaMot !== null
 
-                        ? mediaMot
-                            .toFixed(2)
+                ?
+                mediaMot
+                .toFixed(2)
 
-                        : "-";
+            : "-";
 
 
             /* ========================================================
@@ -2861,16 +3016,17 @@
                 )
                 .sort(
                     (a, b) =>
-                        b[1] - a[1]
+                    b[1] - a[1]
                 );
 
 
             const perfilTop =
                 perfilOrdenado.length
 
-                    ? perfilOrdenado[0][0]
+                ?
+                perfilOrdenado[0][0]
 
-                    : "-";
+            : "-";
 
 
             document
@@ -2878,7 +3034,25 @@
                     "perfilPredominante"
                 )
                 .textContent =
-                    perfilTop;
+                perfilTop;
+
+
+            /* ========================================================
+               PERFIL × COMPORTAMENTOS
+               ======================================================== */
+
+            criarTabelaPerfis(
+                dados,
+                perfis
+            );
+
+
+            graficos.resultadosPerfil =
+                criarGraficoResultadosPerfil(
+                    "graficoResultadosPerfil",
+                    dados,
+                    perfis
+                );
 
 
             /* ========================================================
@@ -2895,41 +3069,34 @@
 
             graficos.idade =
                 criarGrafico(
-                    "graficoIdade",
-                    {
+                    "graficoIdade", {
 
-                        type:
-                            "bar",
+                        type: "bar",
 
 
                         data: {
 
-                            labels:
-                                Object.keys(
-                                    idades
-                                ),
+                            labels: Object.keys(
+                                idades
+                            ),
 
 
                             datasets: [
 
                                 {
 
-                                    label:
-                                        "Respostas",
+                                    label: "Respostas",
 
 
-                                    data:
-                                        Object.values(
-                                            idades
-                                        ),
+                                    data: Object.values(
+                                        idades
+                                    ),
 
 
-                                    backgroundColor:
-                                        "#2563eb",
+                                    backgroundColor: "#2563eb",
 
 
-                                    borderRadius:
-                                        5
+                                    borderRadius: 5
 
                                 }
 
@@ -2940,20 +3107,17 @@
 
                         options: {
 
-                            responsive:
-                                true,
+                            responsive: true,
 
 
-                            maintainAspectRatio:
-                                false,
+                            maintainAspectRatio: false,
 
 
                             plugins: {
 
                                 legend: {
 
-                                    display:
-                                        false
+                                    display: false
 
                                 }
 
@@ -2964,14 +3128,12 @@
 
                                 y: {
 
-                                    beginAtZero:
-                                        true,
+                                    beginAtZero: true,
 
 
                                     ticks: {
 
-                                        precision:
-                                            0
+                                        precision: 0
 
                                     }
 
@@ -2999,29 +3161,25 @@
 
             graficos.sexo =
                 criarGrafico(
-                    "graficoSexo",
-                    {
+                    "graficoSexo", {
 
-                        type:
-                            "doughnut",
+                        type: "doughnut",
 
 
                         data: {
 
-                            labels:
-                                Object.keys(
-                                    sexos
-                                ),
+                            labels: Object.keys(
+                                sexos
+                            ),
 
 
                             datasets: [
 
                                 {
 
-                                    data:
-                                        Object.values(
-                                            sexos
-                                        ),
+                                    data: Object.values(
+                                        sexos
+                                    ),
 
 
                                     backgroundColor: [
@@ -3039,12 +3197,10 @@
                                     ],
 
 
-                                    borderWidth:
-                                        2,
+                                    borderWidth: 2,
 
 
-                                    borderColor:
-                                        "#ffffff"
+                                    borderColor: "#ffffff"
 
                                 }
 
@@ -3055,20 +3211,17 @@
 
                         options: {
 
-                            responsive:
-                                true,
+                            responsive: true,
 
 
-                            maintainAspectRatio:
-                                false,
+                            maintainAspectRatio: false,
 
 
                             plugins: {
 
                                 legend: {
 
-                                    position:
-                                        "bottom"
+                                    position: "bottom"
 
                                 }
 
@@ -3094,41 +3247,34 @@
 
             graficos.turno =
                 criarGrafico(
-                    "graficoTurno",
-                    {
+                    "graficoTurno", {
 
-                        type:
-                            "bar",
+                        type: "bar",
 
 
                         data: {
 
-                            labels:
-                                Object.keys(
-                                    turnos
-                                ),
+                            labels: Object.keys(
+                                turnos
+                            ),
 
 
                             datasets: [
 
                                 {
 
-                                    label:
-                                        "Respostas",
+                                    label: "Respostas",
 
 
-                                    data:
-                                        Object.values(
-                                            turnos
-                                        ),
+                                    data: Object.values(
+                                        turnos
+                                    ),
 
 
-                                    backgroundColor:
-                                        "#3b82f6",
+                                    backgroundColor: "#3b82f6",
 
 
-                                    borderRadius:
-                                        5
+                                    borderRadius: 5
 
                                 }
 
@@ -3139,20 +3285,17 @@
 
                         options: {
 
-                            responsive:
-                                true,
+                            responsive: true,
 
 
-                            maintainAspectRatio:
-                                false,
+                            maintainAspectRatio: false,
 
 
                             plugins: {
 
                                 legend: {
 
-                                    display:
-                                        false
+                                    display: false
 
                                 }
 
@@ -3163,14 +3306,12 @@
 
                                 y: {
 
-                                    beginAtZero:
-                                        true,
+                                    beginAtZero: true,
 
 
                                     ticks: {
 
-                                        precision:
-                                            0
+                                        precision: 0
 
                                     }
 
@@ -3191,29 +3332,25 @@
 
             graficos.perfil =
                 criarGrafico(
-                    "graficoPerfil",
-                    {
+                    "graficoPerfil", {
 
-                        type:
-                            "doughnut",
+                        type: "doughnut",
 
 
                         data: {
 
-                            labels:
-                                Object.keys(
-                                    perfis
-                                ),
+                            labels: Object.keys(
+                                perfis
+                            ),
 
 
                             datasets: [
 
                                 {
 
-                                    data:
-                                        Object.values(
-                                            perfis
-                                        ),
+                                    data: Object.values(
+                                        perfis
+                                    ),
 
 
                                     backgroundColor: [
@@ -3231,12 +3368,10 @@
                                     ],
 
 
-                                    borderWidth:
-                                        2,
+                                    borderWidth: 2,
 
 
-                                    borderColor:
-                                        "#ffffff"
+                                    borderColor: "#ffffff"
 
                                 }
 
@@ -3247,20 +3382,17 @@
 
                         options: {
 
-                            responsive:
-                                true,
+                            responsive: true,
 
 
-                            maintainAspectRatio:
-                                false,
+                            maintainAspectRatio: false,
 
 
                             plugins: {
 
                                 legend: {
 
-                                    position:
-                                        "bottom"
+                                    position: "bottom"
 
                                 }
 
@@ -3319,9 +3451,7 @@
                         );
 
 
-                    if (
-                        !valor.trim()
-                    ) {
+                    if (!valor.trim()) {
 
                         return;
 
@@ -3332,24 +3462,24 @@
 
                         .split(";")
 
-                        .map(
-                            item =>
-                                item.trim()
-                        )
+                    .map(
+                        item =>
+                        item.trim()
+                    )
 
-                        .filter(Boolean)
+                    .filter(Boolean)
 
-                        .forEach(
-                            item => {
+                    .forEach(
+                        item => {
 
-                                fatores[item] =
-                                    (
-                                        fatores[item]
-                                        || 0
-                                    ) + 1;
+                            fatores[item] =
+                                (
+                                    fatores[item] ||
+                                    0
+                                ) + 1;
 
-                            }
-                        );
+                        }
+                    );
 
                 }
             );
@@ -3361,51 +3491,44 @@
                 )
                 .sort(
                     (a, b) =>
-                        b[1] - a[1]
+                    b[1] - a[1]
                 );
 
 
             graficos.fatores =
                 criarGrafico(
-                    "graficoFatores",
-                    {
+                    "graficoFatores", {
 
-                        type:
-                            "bar",
+                        type: "bar",
 
 
                         data: {
 
-                            labels:
-                                fatoresOrdenados
-                                    .map(
-                                        item =>
-                                            item[0]
-                                    ),
+                            labels: fatoresOrdenados
+                                .map(
+                                    item =>
+                                    item[0]
+                                ),
 
 
                             datasets: [
 
                                 {
 
-                                    label:
-                                        "Quantidade",
+                                    label: "Quantidade",
 
 
-                                    data:
-                                        fatoresOrdenados
-                                            .map(
-                                                item =>
-                                                    item[1]
-                                            ),
+                                    data: fatoresOrdenados
+                                        .map(
+                                            item =>
+                                            item[1]
+                                        ),
 
 
-                                    backgroundColor:
-                                        "#2563eb",
+                                    backgroundColor: "#2563eb",
 
 
-                                    borderRadius:
-                                        5
+                                    borderRadius: 5
 
                                 }
 
@@ -3416,24 +3539,20 @@
 
                         options: {
 
-                            indexAxis:
-                                "y",
+                            indexAxis: "y",
 
 
-                            responsive:
-                                true,
+                            responsive: true,
 
 
-                            maintainAspectRatio:
-                                false,
+                            maintainAspectRatio: false,
 
 
                             plugins: {
 
                                 legend: {
 
-                                    display:
-                                        false
+                                    display: false
 
                                 }
 
@@ -3444,14 +3563,12 @@
 
                                 x: {
 
-                                    beginAtZero:
-                                        true,
+                                    beginAtZero: true,
 
 
                                     ticks: {
 
-                                        precision:
-                                            0
+                                        precision: 0
 
                                     }
 
@@ -3501,7 +3618,7 @@
                         "textoSintese"
                     )
                     .textContent =
-                        "Não existem respostas que correspondam aos filtros selecionados.";
+                    "Não existem respostas que correspondam aos filtros selecionados.";
 
                 return;
 
@@ -3525,8 +3642,7 @@
                             );
 
                         return (
-                            select
-                            &&
+                            select &&
                             select.value
                         );
 
@@ -3554,7 +3670,7 @@
             ) {
 
                 texto +=
-                    `A média geral das dimensões relacionadas à percepção sobre a liderança foi de ${mediaLideranca.toFixed(2)} em uma escala de 1 a 5. `;
+                    `O índice exploratório de percepção da liderança foi de ${mediaLideranca.toFixed(2)} em uma escala de 1 a 5. Nesse índice, P2 foi invertida (6 − P2) para alinhar a direção das dimensões; isso não transforma o índice em uma classificação de estilo. `;
 
             }
 
@@ -3564,19 +3680,18 @@
             ) {
 
                 texto +=
-                    `Nas dimensões relacionadas à motivação e satisfação, a média foi de ${mediaMotivacao.toFixed(2)} em uma escala de 1 a 5. `;
+                    `A média dos resultados percebidos (Q10–Q14) foi de ${mediaMotivacao.toFixed(2)} em uma escala de 1 a 5. `;
 
             }
 
 
             if (
-                perfil
-                &&
+                perfil &&
                 perfil !== "-"
             ) {
 
                 texto +=
-                    `O perfil de liderança com maior frequência entre as respostas analisadas foi "${perfil}".`;
+                    `O perfil predominante informado em Q9 foi "${perfil}". A interpretação dos comportamentos deve ser feita separadamente, observando a relação entre Q9 e P1–P8.`;
 
             }
 
@@ -3586,7 +3701,7 @@
                     "textoSintese"
                 )
                 .textContent =
-                    texto;
+                texto;
 
         }
 
@@ -3633,9 +3748,7 @@
             try {
 
 
-                if (
-                    !API_URL
-                    ||
+                if (!API_URL ||
                     API_URL.includes(
                         "COLE_AQUI"
                     )
@@ -3649,42 +3762,33 @@
 
 
                 const url =
-                    API_URL
-                    +
+                    API_URL +
                     (
-                        API_URL.includes("?")
-                            ? "&"
-                            : "?"
-                    )
-                    +
-                    "_="
-                    +
+                        API_URL.includes("?") ?
+                        "&" :
+                        "?"
+                    ) +
+                    "_=" +
                     Date.now();
 
 
                 const resposta =
                     await fetch(
-                        url,
-                        {
+                        url, {
 
-                            method:
-                                "GET",
+                            method: "GET",
 
 
-                            cache:
-                                "no-store"
+                            cache: "no-store"
 
                         }
                     );
 
 
-                if (
-                    !resposta.ok
-                ) {
+                if (!resposta.ok) {
 
                     throw new Error(
-                        "O servidor respondeu com HTTP "
-                        +
+                        "O servidor respondeu com HTTP " +
                         resposta.status
                     );
 
@@ -3695,13 +3799,10 @@
                     await resposta.json();
 
 
-                if (
-                    !resultado.sucesso
-                ) {
+                if (!resultado.sucesso) {
 
                     throw new Error(
-                        resultado.erro
-                        ||
+                        resultado.erro ||
                         "Erro retornado pelo Apps Script."
                     );
 
@@ -3711,9 +3812,8 @@
                 const dados =
                     Array.isArray(
                         resultado.dados
-                    )
-                        ? resultado.dados
-                        : [];
+                    ) ?
+                    resultado.dados : [];
 
 
                 /*
@@ -3722,29 +3822,28 @@
                  * antes de atualizar a base.
                  */
 
-                const filtrosAntes =
-                    {};
+                const filtrosAntes = {};
 
 
                 Object.keys(
-                    CONFIG_FILTROS
-                )
-                .forEach(
-                    id => {
+                        CONFIG_FILTROS
+                    )
+                    .forEach(
+                        id => {
 
-                        const select =
-                            document.getElementById(
-                                id
-                            );
+                            const select =
+                                document.getElementById(
+                                    id
+                                );
 
 
-                        filtrosAntes[id] =
-                            select
-                                ? select.value
-                                : "";
+                            filtrosAntes[id] =
+                                select ?
+                                select.value :
+                                "";
 
-                    }
-                );
+                        }
+                    );
 
 
                 /*
@@ -3769,47 +3868,45 @@
                  */
 
                 Object.keys(
-                    CONFIG_FILTROS
-                )
-                .forEach(
-                    id => {
+                        CONFIG_FILTROS
+                    )
+                    .forEach(
+                        id => {
 
-                        const select =
-                            document.getElementById(
-                                id
-                            );
+                            const select =
+                                document.getElementById(
+                                    id
+                                );
 
 
-                        if (
-                            select
-                            &&
-                            filtrosAntes[id]
-                        ) {
+                            if (
+                                select &&
+                                filtrosAntes[id]
+                            ) {
 
-                            const existe =
-                                Array
+                                const existe =
+                                    Array
                                     .from(
                                         select.options
                                     )
                                     .some(
                                         option =>
-                                            option.value
-                                            ===
-                                            filtrosAntes[id]
+                                        option.value ===
+                                        filtrosAntes[id]
                                     );
 
 
-                            if (existe) {
+                                if (existe) {
 
-                                select.value =
-                                    filtrosAntes[id];
+                                    select.value =
+                                        filtrosAntes[id];
+
+                                }
 
                             }
 
                         }
-
-                    }
-                );
+                    );
 
 
                 /*
@@ -3864,14 +3961,11 @@
 
 
                 erro.textContent =
-                    "Não foi possível consultar a planilha. "
-                    +
+                    "Não foi possível consultar a planilha. " +
                     erroCapturado.message;
 
 
-                if (
-                    !dadosAtuais.length
-                ) {
+                if (!dadosAtuais.length) {
 
                     document
                         .getElementById(
@@ -3915,8 +4009,7 @@
             function() {
 
                 if (
-                    document.visibilityState
-                    ===
+                    document.visibilityState ===
                     "visible"
                 ) {
 
@@ -3934,8 +4027,6 @@
 
 
         carregarDados();
-
-
     </script>
 
 
